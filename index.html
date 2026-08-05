@@ -179,6 +179,13 @@
   .tier-features li::before{content:"—"; color:var(--blue-2); flex-shrink:0;}
   .tier-card .btn{width:100%;}
 
+  .maintenance-block{margin-top:64px; padding-top:56px; border-top:1px solid var(--line);}
+  .maintenance-head{max-width:520px; margin-bottom:32px;}
+  .maintenance-head h3{font-family:'Archivo', sans-serif; font-weight:800; font-size:24px; color:#fff; margin-bottom:10px;}
+  .maintenance-head p{font-size:15px; color:#9AA0AF;}
+  .maintenance-row .tier-card{padding:26px 24px;}
+  .maintenance-row .tier-price{font-size:30px;}
+
   /* ---------- WHY / CREDIBILITY ---------- */
   .why{background:var(--paper-2);}
   .why-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:center;}
@@ -416,6 +423,43 @@
             <li>2 revision rounds</li>
           </ul>
           <a href="#book" class="btn btn-ghost-dark">Book a call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="maintenance-block">
+      <div class="maintenance-head">
+        <h3>Ongoing care, once your site is live</h3>
+        <p>Every build includes the option to add monthly care, hosting, monitoring, and updates handled for you.</p>
+      </div>
+      <div class="course-row maintenance-row">
+        <div class="tier-card">
+          <div class="tier-badge">BASIC CARE</div>
+          <div class="tier-name">Stay Online</div>
+          <div class="tier-price">$85<span> / mo</span></div>
+          <ul class="tier-features">
+            <li>Hosting included</li>
+            <li>Uptime monitoring</li>
+            <li>Security patches</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge">STANDARD CARE</div>
+          <div class="tier-name">Stay Current</div>
+          <div class="tier-price">$150<span> / mo</span></div>
+          <ul class="tier-features">
+            <li>Everything in Basic Care</li>
+            <li>Up to 2 hrs/month content or image updates</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge">GROWTH CARE</div>
+          <div class="tier-name">Stay Ahead</div>
+          <div class="tier-price">$250<span> / mo</span></div>
+          <ul class="tier-features">
+            <li>Everything in Standard Care</li>
+            <li>Monthly performance check-in</li>
+          </ul>
         </div>
       </div>
     </div>
