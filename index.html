@@ -271,6 +271,90 @@
   }
   .logo-card-img{width:100%; height:auto; border-radius:4px;}
 
+  /* ---------- SCROLL PROGRESS ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--blue-2), var(--orange));
+    z-index:100; transition:width .08s linear;
+  }
+
+  /* ---------- HERO FX LAYERS ---------- */
+  .hero{position:relative;}
+  .hero-bg-grid{
+    position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .hero-orb{
+    position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; opacity:.35;
+    animation:orbFloat 9s ease-in-out infinite;
+  }
+  .hero-orb-blue{width:340px; height:340px; background:var(--blue); top:-80px; right:8%; animation-delay:0s;}
+  .hero-orb-orange{width:260px; height:260px; background:var(--orange); bottom:-60px; left:4%; animation-delay:2.5s;}
+  @keyframes orbFloat{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-18px, 22px);}
+  }
+  .hero-spotlight{
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,20%), rgba(74,114,255,0.14), transparent 70%);
+    transition:background .05s linear;
+  }
+  .hero-grid, .hero-actions, .hero-proof, .hero-eyebrow, h1.hero-title, .hero-sub, .mono-wrap{position:relative; z-index:1;}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .hero-orb{animation:none;}
+  }
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    overflow:hidden; padding:14px 0;
+  }
+  .ticker-track{
+    display:flex; gap:14px; width:max-content;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; letter-spacing:.08em;
+    color:#AEB4C2; white-space:nowrap;
+    animation:tickerScroll 22s linear infinite;
+  }
+  .ticker-track .dot{color:var(--orange);}
+  .ticker:hover .ticker-track{animation-play-state:paused;}
+  @keyframes tickerScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{animation:none;}
+  }
+
+  /* ---------- TIER CARD TILT + GLOW ---------- */
+  .tilt-card{transform-style:preserve-3d; will-change:transform;}
+  .tier-card.featured{position:relative; overflow:visible;}
+  .tier-card.featured::before{
+    content:""; position:absolute; inset:-2px; border-radius:calc(var(--radius) + 2px);
+    background:conic-gradient(from var(--angle,0deg), var(--blue), var(--orange), var(--blue));
+    z-index:-1; animation:rotateGlow 4s linear infinite;
+    opacity:.9;
+  }
+  @property --angle{syntax:'<angle>'; initial-value:0deg; inherits:false;}
+  @keyframes rotateGlow{ to{ --angle:360deg; } }
+  @media (prefers-reduced-motion: reduce){
+    .tier-card.featured::before{animation:none;}
+  }
+
+  /* ---------- MAGNETIC BUTTON ---------- */
+  .btn-primary{will-change:transform;}
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:880px){
     .hero-grid{grid-template-columns:1fr; gap:48px;}
@@ -290,6 +374,8 @@
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header>
   <nav>
@@ -321,7 +407,11 @@
   #mnav.open{display:flex !important;}
 </style>
 
-<section class="hero">
+<section class="hero" id="heroSection">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb hero-orb-blue"></div>
+  <div class="hero-orb hero-orb-orange"></div>
+  <div class="hero-spotlight" id="heroSpotlight"></div>
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow hero-eyebrow">Website design & build</div>
@@ -347,7 +437,7 @@
 
 <section class="process" id="process">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">How it works</div>
       <h2>Three steps. No obligation until you say go.</h2>
       <p>Most studios ask you to commit before you've seen anything. Brix flips that: you see the actual site first.</p>
@@ -355,17 +445,17 @@
   </div>
   <div class="wrap" style="padding:0;">
     <div class="process-row">
-      <div class="process-step">
+      <div class="process-step reveal" style="transition-delay:.05s">
         <div class="process-num">01 / CALL</div>
         <h3>15-minute preview call</h3>
         <p>Tell me about the business. I put together a working preview built specifically for you, no template, no placeholder text.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal" style="transition-delay:.15s">
         <div class="process-num">02 / REFINE</div>
         <h3>Review & lock scope</h3>
         <p>Like what you see, we lock in scope, pricing, and timeline in writing. A 30% deposit gets real build work started.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal" style="transition-delay:.25s">
         <div class="process-num">03 / LAUNCH</div>
         <h3>Go live & stay live</h3>
         <p>Site launches on a fast, secure host. Ongoing care plans keep it updated, monitored, and actually working while you run the business.</p>
@@ -374,16 +464,23 @@
   </div>
 </section>
 
+<div class="ticker">
+  <div class="ticker-track">
+    <span>FLAT PRICING</span><span class="dot">/</span><span>FREE PREVIEW</span><span class="dot">/</span><span>PHOENIX, AZ</span><span class="dot">/</span><span>BUILT TO BOOK</span><span class="dot">/</span><span>30% DEPOSIT, NO SURPRISES</span><span class="dot">/</span>
+    <span>FLAT PRICING</span><span class="dot">/</span><span>FREE PREVIEW</span><span class="dot">/</span><span>PHOENIX, AZ</span><span class="dot">/</span><span>BUILT TO BOOK</span><span class="dot">/</span><span>30% DEPOSIT, NO SURPRISES</span><span class="dot">/</span>
+  </div>
+</div>
+
 <section class="pricing" id="pricing">
   <div class="wrap">
-    <div class="section-head light-on-dark">
+    <div class="section-head light-on-dark reveal">
       <div class="eyebrow">Pricing</div>
       <h2>Flat pricing. No hourly guessing games.</h2>
       <p>One price per tier, agreed before work starts. Anything outside scope is quoted separately, never buried in the invoice.</p>
     </div>
     <div class="brick-course">
       <div class="course-row">
-        <div class="tier-card">
+        <div class="tier-card reveal tilt-card">
           <div class="tier-badge">STARTER</div>
           <div class="tier-name">Get Found</div>
           <div class="tier-price">$1,950</div>
@@ -396,7 +493,7 @@
           </ul>
           <a href="#book" class="btn btn-ghost-dark">Book a call</a>
         </div>
-        <div class="tier-card featured">
+        <div class="tier-card featured reveal tilt-card" style="transition-delay:.1s">
           <div class="tier-badge">MOST BOOKED</div>
           <div class="tier-name">Get Leads</div>
           <div class="tier-price">$3,400</div>
@@ -410,7 +507,7 @@
           </ul>
           <a href="#book" class="btn btn-primary">Book a call</a>
         </div>
-        <div class="tier-card">
+        <div class="tier-card reveal tilt-card">
           <div class="tier-badge">GROWTH</div>
           <div class="tier-name">Run the Numbers</div>
           <div class="tier-price">$5,200</div>
@@ -433,7 +530,7 @@
         <p>Every build includes the option to add monthly care, hosting, monitoring, and updates handled for you.</p>
       </div>
       <div class="course-row maintenance-row">
-        <div class="tier-card">
+        <div class="tier-card reveal tilt-card">
           <div class="tier-badge">BASIC CARE</div>
           <div class="tier-name">Stay Online</div>
           <div class="tier-price">$85<span> / mo</span></div>
@@ -443,7 +540,7 @@
             <li>Security patches</li>
           </ul>
         </div>
-        <div class="tier-card">
+        <div class="tier-card reveal tilt-card">
           <div class="tier-badge">STANDARD CARE</div>
           <div class="tier-name">Stay Current</div>
           <div class="tier-price">$150<span> / mo</span></div>
@@ -452,7 +549,7 @@
             <li>Up to 2 hrs/month content or image updates</li>
           </ul>
         </div>
-        <div class="tier-card">
+        <div class="tier-card reveal tilt-card">
           <div class="tier-badge">GROWTH CARE</div>
           <div class="tier-name">Stay Ahead</div>
           <div class="tier-price">$250<span> / mo</span></div>
@@ -482,12 +579,12 @@
 
 <section class="featured" id="work">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Portfolio</div>
       <h2>See real work before you commit to anything.</h2>
       <p>Full portfolio and live examples are available on request during your preview call, no need to dig through a public gallery to see if the quality's there.</p>
     </div>
-    <div class="featured-card" style="grid-template-columns:1fr;">
+    <div class="featured-card reveal" style="grid-template-columns:1fr;">
       <div class="featured-copy" style="text-align:center; padding:56px 44px;">
         <p style="max-width:480px; margin:0 auto 26px;">Every project is built specifically for the business it's for, not pulled from a template library. The best way to see if that fits what you need is to look at real, live examples together.</p>
         <a href="#book" class="btn btn-primary">Book a call to see the portfolio</a>
@@ -498,12 +595,12 @@
 
 <section class="book" id="book">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Book a call</div>
       <h2>See your site before you spend anything.</h2>
       <p>Tell me a bit about the business. I'll put together a preview and we'll go over it together, no cost, no obligation.</p>
     </div>
-    <form class="book-form" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Request sent';">
+    <form class="book-form reveal" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Request sent';">
       <div class="field">
         <label for="bname">Business name</label>
         <input id="bname" type="text" placeholder="e.g. Ahlquist Construction" required>
@@ -549,5 +646,67 @@
   </div>
 </footer>
 
+<script>
+  // ---- Scroll progress bar ----
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive:true });
+  updateProgress();
+
+  // ---- Hero spotlight follows cursor ----
+  const heroSection = document.getElementById('heroSection');
+  const spotlight = document.getElementById('heroSpotlight');
+  if (heroSection && spotlight){
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      spotlight.style.setProperty('--mx', x + '%');
+      spotlight.style.setProperty('--my', y + '%');
+    });
+  }
+
+  // ---- Scroll reveal via IntersectionObserver ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Magnetic hover on primary buttons ----
+  const magButtons = document.querySelectorAll('.btn-primary');
+  magButtons.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width/2;
+      const y = e.clientY - rect.top - rect.height/2;
+      btn.style.transform = `translate(${x*0.15}px, ${y*0.35}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+  });
+
+  // ---- Subtle 3D tilt on tier cards ----
+  const tiltCards = document.querySelectorAll('.tilt-card');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(700px) rotateX(${py * -6}deg) rotateY(${px * 6}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+</script>
 </body>
 </html>
