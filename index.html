@@ -262,7 +262,18 @@
   .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--blue-2); outline:none;}
   .field textarea{resize:vertical; min-height:80px;}
   .book-form .btn{width:100%; padding:14px; font-size:15px; margin-top:6px;}
-  .book-note{font-size:12.5px; color:#7C8294; margin-top:14px; text-align:center;}
+  .book-note{font-size:12.5px; color:#9AA0AF; margin-top:14px; text-align:center;}
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  .skip-link{
+    position:absolute; top:-60px; left:12px; z-index:999;
+    background:var(--blue); color:#fff; padding:10px 18px; border-radius:6px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:14px;
+    transition:top .2s ease;
+  }
+  .skip-link:focus{top:12px;}
 
   /* ---------- FOOTER ---------- */
   footer{background:#080A0F; color:#7C8294; padding:44px 0; border-top:1px solid var(--line);}
@@ -273,7 +284,7 @@
   footer .footer-links{display:flex; gap:24px;}
   footer .footer-links a{font-size:13.5px; color:#7C8294;}
   footer .footer-links a:hover{color:#fff;}
-  footer .fine{font-size:12.5px; margin-top:20px; color:#565C6C;}
+  footer .fine{font-size:12.5px; margin-top:20px; color:#7C8294;}
 
   /* ---------- LOGO CHIP (small, for dark nav/footer) ---------- */
   .logo-chip{
@@ -538,9 +549,9 @@
 </head>
 <body>
 
-<div class="grain-overlay"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="cursor-dot" id="cursorDot"></div>
+<div class="grain-overlay" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
 <div class="preloader" id="preloader">
   <div class="preloader-mark">
@@ -548,6 +559,8 @@
   </div>
   <div class="preloader-bar"><div class="preloader-bar-fill" id="preloaderFill"></div></div>
 </div>
+
+<a href="#heroSection" class="skip-link">Skip to main content</a>
 
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -564,7 +577,7 @@
       <a href="#why" data-nav-link>Why Brix</a>
       <a href="#book" class="btn btn-primary">Book a call</a>
     </div>
-    <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')">
+    <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mnav" onclick="const m=document.getElementById('mnav'); const open=m.classList.toggle('open'); this.setAttribute('aria-expanded', open);">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -588,10 +601,10 @@
 </style>
 
 <section class="hero" id="heroSection">
-  <div class="hero-bg-grid"></div>
-  <div class="hero-orb hero-orb-blue"></div>
-  <div class="hero-orb hero-orb-orange"></div>
-  <div class="hero-spotlight" id="heroSpotlight"></div>
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-blue" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-orange" aria-hidden="true"></div>
+  <div class="hero-spotlight" id="heroSpotlight" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow hero-eyebrow">Website design & build</div>
@@ -614,10 +627,11 @@
 </section>
 
 <section class="statement" id="statement">
-  <canvas class="statement-canvas" id="statementCanvas"></canvas>
+  <canvas class="statement-canvas" id="statementCanvas" aria-hidden="true"></canvas>
   <div class="statement-vignette"></div>
   <div class="wrap statement-inner">
-    <p class="statement-text" id="statementText" data-final="Your dream on screen.">&nbsp;</p>
+    <p class="statement-text" id="statementText" data-final="Your dream on screen." aria-hidden="true">&nbsp;</p>
+    <p class="sr-only">Your dream on screen.</p>
     <p class="statement-sub">No account managers. No junior designer learning on your dime. Just someone who's run a business, building yours.</p>
   </div>
 </section>
@@ -787,18 +801,18 @@
       <h2>See your site before you spend anything.</h2>
       <p>Tell me a bit about the business. I'll put together a preview and we'll go over it together, no cost, no obligation.</p>
     </div>
-    <form class="book-form reveal" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Request sent';">
+    <form class="book-form reveal" id="bookForm" action="https://formspree.io/f/mljrgkrv" method="POST">
       <div class="field">
         <label for="bname">Business name</label>
-        <input id="bname" type="text" placeholder="Your business name" required>
+        <input id="bname" name="business_name" type="text" placeholder="Your business name" required>
       </div>
       <div class="field">
         <label for="contact">Your name & phone or email</label>
-        <input id="contact" type="text" placeholder="How should we reach you?" required>
+        <input id="contact" name="contact_info" type="text" placeholder="How should we reach you?" required>
       </div>
       <div class="field">
         <label for="tier">What are you looking for?</label>
-        <select id="tier">
+        <select id="tier" name="tier_interest">
           <option>Not sure yet</option>
           <option>Get Found — Starter</option>
           <option>Get Leads — Standard</option>
@@ -807,10 +821,10 @@
       </div>
       <div class="field">
         <label for="notes">Anything else worth knowing?</label>
-        <textarea id="notes" placeholder="Current site, timeline, goals..."></textarea>
+        <textarea id="notes" name="notes" placeholder="Current site, timeline, goals..."></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Request my free preview</button>
-      <div class="book-note">No payment required to see your preview. Deposit only due once you approve scope.</div>
+      <div class="book-note" id="bookFormNote">No payment required to see your preview. Deposit only due once you approve scope.</div>
     </form>
   </div>
 </section>
@@ -1137,6 +1151,41 @@
   }
   document.addEventListener('scroll', updateBackToTop, { passive: true });
   backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ---- Contact form: real submission to Formspree ----
+  const bookForm = document.getElementById('bookForm');
+  const bookFormNote = document.getElementById('bookFormNote');
+  if (bookForm) {
+    bookForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = bookForm.querySelector('.btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      try {
+        const response = await fetch(bookForm.action, {
+          method: 'POST',
+          body: new FormData(bookForm),
+          headers: { 'Accept': 'application/json' },
+        });
+        if (response.ok) {
+          submitBtn.textContent = 'Request sent ✓';
+          bookFormNote.textContent = "Got it — I'll be in touch shortly to schedule your free preview.";
+          bookForm.reset();
+        } else {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          bookFormNote.textContent = "Something went wrong sending that. Try again, or reach out directly.";
+          bookFormNote.style.color = '#E8703A';
+        }
+      } catch (err) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        bookFormNote.textContent = "Something went wrong sending that. Try again, or reach out directly.";
+        bookFormNote.style.color = '#E8703A';
+      }
+    });
+  }
 </script>
 </body>
 </html>
