@@ -208,6 +208,21 @@
   .maintenance-row .tier-card{padding:26px 24px;}
   .maintenance-row .tier-price{font-size:30px;}
 
+  /* ---------- FOUNDING OFFER ---------- */
+  .founding{display:grid; grid-template-columns:1.4fr 1fr; gap:28px; align-items:center;
+    border:1.5px solid var(--orange); border-radius:var(--radius); padding:30px 30px;
+    background:linear-gradient(160deg, rgba(232,112,58,0.10), var(--ink-2) 60%); margin-bottom:28px;}
+  .founding .tier-badge{display:inline-block; margin-bottom:14px;}
+  .founding h3{font-family:'Archivo', sans-serif; font-weight:900; font-size:clamp(22px,2.6vw,30px); color:#fff; margin-bottom:10px;}
+  .founding p{font-size:15px; color:#B4BAC7; max-width:520px;}
+  .founding-terms li{font-size:14.5px; color:#D5D9E2; padding:7px 0 7px 22px; position:relative; border-bottom:1px solid var(--line);}
+  .founding-terms li::before{content:""; position:absolute; left:0; top:15px; width:10px; height:2px; background:var(--orange);}
+  .founding-price{font-family:'Archivo', sans-serif; font-weight:900; font-size:44px; color:#fff; line-height:1; margin:4px 0 6px;}
+  .founding-price s{font-size:20px; color:#6B7280; font-weight:700; margin-left:8px;}
+  .founding-price span{font-size:15px; color:#9AA0AF; font-weight:600; display:block; margin-top:6px;}
+  .founding .btn{margin-top:18px;}
+  @media (max-width:820px){ .founding{grid-template-columns:1fr; padding:24px 20px;} }
+
   /* ---------- WHY / CREDIBILITY ---------- */
   .why{background:var(--paper-2);}
   .why-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:center;}
@@ -678,6 +693,23 @@
       <div class="eyebrow">Pricing</div>
       <h2>Flat pricing. No hourly guessing games.</h2>
       <p>One price per tier, agreed before work starts. Anything outside scope is quoted separately, never buried in the invoice.</p>
+    </div>
+    <div class="founding reveal" id="founding">
+      <div>
+        <div class="tier-badge">FOUNDING CLIENTS &middot; 3 SPOTS</div>
+        <h3>First 3 Valley trades get a Starter site for $997.</h3>
+        <p>I'm building my portfolio with local trades. You get the full Get Found build at about half price. In return, you give an honest testimonial and a Google review once it's live.</p>
+        <a href="#book" class="btn btn-primary">Claim a founding spot</a>
+      </div>
+      <div>
+        <div class="founding-price">$997<s>$1,950</s><span>+ Basic Care $85/mo, 12-month term</span></div>
+        <ul class="founding-terms">
+          <li>3&ndash;4 pages, mobile-first, click-to-call</li>
+          <li>Quote form that lands in your inbox</li>
+          <li>Live in 14 days from your content, or your first 2 months of care are free</li>
+          <li>30% deposit, balance at launch</li>
+        </ul>
+      </div>
     </div>
     <div class="brick-course">
       <div class="course-row">
