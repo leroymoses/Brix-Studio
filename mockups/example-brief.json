@@ -1,0 +1,7 @@
+{"name":"Sample Plumbing Co.","name_short":"Sample Plumbing","trade":"Plumbing","city":"Glendale","area_short":"the West Valley","phone":"(623) 555-0100","license":"ROC #000000","rating":"4.9","review_count":"120",
+"headline_a":"Glendale plumbing,","headline_b":"fixed right the first time.","subhead":"Family-owned and licensed. Upfront pricing, clean work, and a real person on the phone.",
+"services":[{"title":"Water heaters","desc":"Repair and same-week replacement, tank or tankless."},{"title":"Leak repair","desc":"Slab leaks, pipe leaks and fixtures, found fast."},{"title":"Drain cleaning","desc":"Kitchen, bath and main line clogs cleared."}],
+"trust":[{"big":"Licensed","small":"and insured"},{"big":"4.9 stars","small":"120 Google reviews"},{"big":"Same day","small":"service most calls"},{"big":"Upfront","small":"pricing, no surprises"}],
+"reviews":[{"text":"Example review text pulled verbatim from Google.","who":"First name L."},{"text":"Example review text pulled verbatim from Google.","who":"First name L."},{"text":"Example review text pulled verbatim from Google.","who":"First name L."}],
+"areas":["Glendale","Peoria","Surprise","Sun City","Youngtown","El Mirage"],"services_title":"What we fix","services_sub":"Residential plumbing across the West Valley.","area_sub":"Based in Glendale, serving the West Valley.",
+"cta_title":"Need a plumber today?","cta_sub":"Call now and talk to the owner, not a call center.","address":"Glendale, AZ","color":"#1D4ED8"}

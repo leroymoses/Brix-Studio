@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{name}} | {{trade}} in {{city}}, AZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--brand:{{color}};--ink:#111418;--muted:#5B6270;--paper:#F6F5F2;--line:#E3E1DC;--r:8px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+a{color:inherit;text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:Archivo,Inter,Arial,sans-serif;letter-spacing:-.02em;line-height:1.05}
+.top{background:var(--ink);color:#fff;font-size:13.5px}.top .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:8px;padding-bottom:8px}
+nav{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5}nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:Archivo,Inter,Arial,sans-serif;font-weight:900;font-size:21px}.logo span{color:var(--brand)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:13px 20px;border-radius:var(--r);font-size:15px}
+.btn-main{background:var(--brand);color:#fff}.btn-line{border:2px solid var(--ink)}
+.hero{background:var(--paper);padding:64px 0 56px}.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.stars{display:inline-flex;gap:8px;align-items:center;font-weight:600;font-size:14px;background:#fff;border:1px solid var(--line);padding:6px 12px;border-radius:30px;margin-bottom:18px}
+.stars b{color:#E8A317;letter-spacing:2px}
+.hero h1{font-size:clamp(34px,5vw,54px);font-weight:900;margin-bottom:16px}.hero h1 em{font-style:normal;color:var(--brand)}
+.hero p{font-size:17.5px;color:var(--muted);max-width:520px;margin-bottom:26px}.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.card h3{font-size:21px;margin-bottom:4px}.card small{color:var(--muted)}
+.card input,.card select{width:100%;padding:12px;border:1px solid var(--line);border-radius:var(--r);font:inherit;margin-top:10px}
+.card .btn{width:100%;justify-content:center;margin-top:14px}
+.trust{border-bottom:1px solid var(--line)}.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:22px;padding-bottom:22px}
+.trust div{font-size:14px;color:var(--muted)}.trust strong{display:block;font-family:Archivo,Inter,Arial,sans-serif;font-size:20px;color:var(--ink)}
+section{padding:64px 0}.head{max-width:620px;margin-bottom:32px}.head h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:10px}.head p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.svc{border:1px solid var(--line);border-radius:12px;padding:24px}
+.svc i{display:block;width:34px;height:4px;background:var(--brand);margin-bottom:16px;border-radius:2px}.svc h3{font-size:19px;margin-bottom:6px}.svc p{color:var(--muted);font-size:15px}
+.reviews{background:var(--paper)}.rev{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--line)}.rev p{font-size:15.5px;margin:10px 0}.rev b{color:#E8A317}.rev small{color:var(--muted)}
+.area .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.chips{display:flex;flex-wrap:wrap;gap:8px}.chips span{border:1px solid var(--line);padding:7px 13px;border-radius:30px;font-size:14px}
+.cta{background:var(--ink);color:#fff;text-align:center}.cta h2{font-size:clamp(28px,4vw,42px);margin-bottom:12px}.cta p{color:#AEB3BD;margin-bottom:24px}
+footer{padding:26px 0;font-size:13.5px;color:var(--muted)}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.concept{background:var(--brand);color:#fff;font-weight:600;padding:2px 8px;border-radius:4px}
+@media(max-width:820px){.hero .wrap,.area .wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.trust .wrap{grid-template-columns:1fr 1fr}.top .hide,nav .hide{display:none}.top .wrap{font-size:12px}nav .btn-line{display:none}}
+</style></head><body>
+<div class="top"><div class="wrap"><span>Serving {{area_short}}</span><span class="concept">Homepage concept by Brix Studio</span></div></div>
+<nav><div class="wrap"><a class="logo" href="#">{{name_short}}<span>.</span></a><div class="ctas"><a class="btn btn-line" href="#quote">Free Quote</a><a class="btn btn-main" href="tel:{{phone_raw}}">Call <span class="hide">{{phone}}</span></a></div></div></nav>
+<header class="hero"><div class="wrap"><div>
+<div class="stars"><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b> {{rating}} from {{review_count}} Google reviews</div>
+<h1>{{headline_a}} <em>{{headline_b}}</em></h1>
+<p>{{subhead}}</p>
+<div class="ctas"><a class="btn btn-main" href="tel:{{phone_raw}}">Call {{phone}}</a><a class="btn btn-line" href="#quote">Get a free quote</a></div></div>
+<form class="card" id="quote" onsubmit="return false"><h3>Get a free quote</h3><small>We reply same day, usually within the hour.</small>
+<input placeholder="Your name"><input placeholder="Phone number"><select><option>What do you need?</option>{{service_options}}</select><button class="btn btn-main">Request my quote</button></form>
+</div></header>
+<div class="trust"><div class="wrap">{{trust_items}}</div></div>
+<section><div class="wrap"><div class="head"><h2>{{services_title}}</h2><p>{{services_sub}}</p></div><div class="grid">{{service_cards}}</div></div></section>
+<section class="reviews"><div class="wrap"><div class="head"><h2>What {{city}} neighbors say</h2><p>{{rating}} stars across {{review_count}} Google reviews.</p></div><div class="grid">{{review_cards}}</div></div></section>
+<section class="area"><div class="wrap"><div class="head"><h2>Where we work</h2><p>{{area_sub}}</p></div><div class="chips">{{area_chips}}</div></div></section>
+<section class="cta"><div class="wrap"><h2>{{cta_title}}</h2><p>{{cta_sub}}</p><a class="btn btn-main" href="tel:{{phone_raw}}">Call {{phone}}</a></div></section>
+<footer><div class="wrap"><span>&copy; {{year}} {{name}}. {{license}}</span><span>{{address}}</span></div></footer>
+</body></html>
